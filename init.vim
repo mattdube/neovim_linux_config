@@ -19,6 +19,7 @@ if exists('g:vscode')
   source $HOME/.config/nvim/plug-config/easymotion.vim
 else
   " ordinary neovim
+  source $HOME/.config/nvim/plug-config/nvim-r.vim 
   source $HOME/.config/nvim/themes/syntax.vim
   source $HOME/.config/nvim/themes/onedark.vim
   source $HOME/.config/nvim/themes/airline.vim
@@ -38,7 +39,7 @@ else
   source $HOME/.config/nvim/plug-config/closetags.vim
   source $HOME/.config/nvim/plug-config/floaterm.vim
   source $HOME/.config/nvim/plug-config/vista.vim
-  luafile $HOME/.config/nvim/lua/plug-colorizer.lua
+"  luafile $HOME/.config/nvim/lua/plug-colorizer.lua
   " source $HOME/.config/nvim/plug-config/easymotion.vim
 endif
 
