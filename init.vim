@@ -4,6 +4,7 @@
 " _/ // / / / / /__| |/ / / / / / / /
 "/___/_/ /_/_/\__(_)___/_/_/ /_/ /_/
 
+let g:polyglot_disabled = ['csv']
 
 " Always source these
 source $HOME/.config/nvim/vim-plug/plugins.vim
@@ -39,6 +40,7 @@ else
   source $HOME/.config/nvim/plug-config/closetags.vim
   source $HOME/.config/nvim/plug-config/floaterm.vim
   source $HOME/.config/nvim/plug-config/vista.vim
+  source $HOME/.config/nvim/plug-config/polyglot.vim
 "  luafile $HOME/.config/nvim/lua/plug-colorizer.lua
   " source $HOME/.config/nvim/plug-config/easymotion.vim
 endif
@@ -48,8 +50,35 @@ endif
 if !empty(glob("./paths.vim"))
   source $HOME/.config/nvim/paths.vim
 endif
-let g:polyglot_disabled = ['csv']
+"let g:polyglot_disabled = ['csv']
 
+
+" configure treesitter
+" lua << EOF
+" require'nvim-treesitter.configs'.setup {
+"   ensure_installed = "all", -- one of "all", "maintained" (parsers with
+"   maintainers), or a list of languages
+"     highlight = {
+"         enable = true,              -- false will disable the whole
+"         extension
+"             disable = { "c", "rust" },  -- list of language that will be
+"             disabled
+"               },
+"               }
+"               EOF
+"
+"               " configure nvcode-color-schemes
+"               let g:nvcode_termcolors=256
+"
+"               syntax on
+"               colorscheme nvcode " Or whatever colorscheme you make
+"
+"
+"               " checks if your terminal has 24-bit color support
+"               if (has("termguicolors"))
+"                   set termguicolors
+"                       hi LineNr ctermbg=NONE guibg=NONE
+"                       endif
 " Python
 " https://realpython.com/python-debugging-pdb/ " breakpoint syntax is really cool
 " also look into profiling as well
