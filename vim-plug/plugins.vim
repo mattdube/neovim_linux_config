@@ -89,10 +89,44 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     " Echo doc
     " Plug 'Shougo/echodoc.vim'
     " Interactive code
+    " Plug 'tell-k/vim-autopep8'
     Plug 'ChristianChiarulli/codi.vim'
     " Vim Wiki
     " Plug 'https://github.com/vimwiki/vimwiki.git'
     Plug 'jalvesaq/Nvim-R'
+    Plug 'jalvesaq/vimcmdline'
+    "Plug 'ncm2/ncm2'
+    "Plug 'roxma/nvim-yarp'
+    "Plug 'gaalcaras/ncm-R'
+    " Plug 'jpalardy/vim-slime'
+    " Python folding script
+    Plug 'kalekundert/vim-coiled-snake'
+    Plug 'Konfekt/FastFold'
+
+    " let Vundle manage Vundle, required
+    Plug 'gmarik/Vundle.vim'
+
+    " Load Indentpython
+    Plug 'vim-scripts/indentpython.vim'
+
+    " Load indentation checker
+    Plug 'nvie/vim-flake8'
+
+    " Load maralla autocompletor
+    " Plug 'maralla/completor.vim'
+
+    " Load indentLine - displays indentation guide and line
+    Plug 'Yggdroot/indentLine'
+
+    " Load iron vim. iron nvim does not play as nice with jupyter-console
+    "Plug 'Vigemus/iron.nvim'
+
+    " Load vimcmdline. This is the suggested plugin to load for jupyter-console /
+    " ipython REPL.
+    Plug 'xuesoso/vimcmdline'
+
+    " Load jupytext
+    Plug 'goerz/jupytext.vim'
   endif
 
 

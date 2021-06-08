@@ -1,0 +1,146 @@
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+"""" 1. Vim Behaviour.
+" Use filetype-based syntax hilighting, ftplugins, and indentation.
+syntax on
+set nocompatible
+filetype plugin indent on
+set background=dark
+set scrolloff=2
+set backspace=2
+set clipboard+=unnamedplus
+set smartcase
+set wildmode=longest,list
+set rnu
+autocmd FileType python setlocal colorcolumn=80
+autocmd FileType markdown let g:indentLine_enabled=0
+
+" Allows us to use Ctrl-s and Ctrl-q as keybinds
+silent !stty -ixon
+" Restore default behavior when leaving vim
+autocmd VimLeave * silent !stty ixon
+
+
+" Use numbering. Don't use relative numbering as this is slow (especially in
+" .tex files).
+set number
+
+" Enables mouse support. Note that on Mac OS X this doesn't work well on the
+" default terminal.
+set mouse=a
+
+" Enable folding
+setlocal foldmethod=indent
+set foldlevel=1
+set foldnestmax=2
+
+" Enable cursor highlighting
+:nnoremap <Leader>c :set cursorline!<CR>
+set cursorline!
+
+" UTF-8 encoding
+set encoding=utf-8
+
+" Set the filetype based on the file's extension, overriding any
+" 'filetype' that has already been set
+autocmd BufNewFile,BufRead *.ipynb,*.py set syntax=python
+let g:jupytext_filetype_map = {'md': 'python'}
+let g:jupytext_to_ipynb_opts = '--to=ipynb --update'
+autocmd BufNewFile,BufRead *.md set filetype=tex
+
+" Set indentLine conceal level
+let g:indentLine_conceallevel = "0"
+set conceallevel=0
+
+" Run vim_coiled_snake on start up
+let b:vim_coiled_snake_loaded = 1
+
+" Run deoplete on start up
+let g:deoplete#enable_at_startup = 1
+" Let <Tab> also do completion
+inoremap <silent><expr> <Tab>
+\ pumvisible() ? "\<C-n>" :
+\ deoplete#mappings#manual_complete()
+let g:deoplete#skip_chars = ['(', ')', ' ']
+" Close the documentation window when completion is done
+autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+" Turn off preview window
+set completeopt-=preview
+
+" Configurations for iron.nvim. Uncomment lines if using iron.nvim
+" I bind <A-d> to automatically execute iron.nvim code
+" on the current line in normal mode, or to all the highlighted
+" lines in visual mode (automatically jumping to the end of the
+" unfinished line)
+" I also bind <Alt-s> to automatically run the current cell,
+" defined in .ipynb as the code between ```python and ```
+" We redefine Alt-s
+
+"autocmd FileType python nmap <A-d> 0v$ctr<Esc>0
+"autocmd FileType python imap <A-d> <Esc>0v$ctr<Esc>0
+"autocmd FileType python vmap <A-d> $ctr<Esc>
+"autocmd FileType python nmap <silent> <A-s> m0?```python<CR>jv/```<CR>k$ctr<Esc>:noh<CR>G<C-k>`0:delmarks 0<CR>
+
+" Configurations for vimcmdline
+autocmd FileType python nmap <silent> <A-s> m0?```python<CR>jv/```<CR>k<Space>`0:delmarks 0<CR>:nohl<CR>
+autocmd FileType python nmap <silent> <A-Space> m0v/```<CR>k<Space>`0:delmarks 0<CR>:nohl<CR>
+let cmdline_app = {}
+let cmdline_app['python'] = 'jupyter-console'
+let cmdline_follow_colorscheme = 1
+
+
+" Set vim to remember folds
+augroup remember_folds
+  autocmd!
+  autocmd BufWinLeave * mkview
+  autocmd BufWinEnter * silent! loadview
+augroup END
+
+"""" 3. Vim Appearance.
+" Python highlight
+let python_highlight_all=1
+
+" Search settings
+set hlsearch " hilight
+set incsearch " jump to best fit
+
+" Turn off seach hilighting with <CR>.
+nnoremap <CR> :nohlsearch<CR><CR>
+
+" Tab settings
+set autoindent
+set smartindent
+set tabstop=4
+set shiftwidth=4
+set expandtab
+
+" Use TAB to complete when typing words, else inserts TABs as usual.  Uses
+" dictionary, source files, and completor to find matching words to complete.
+
+" Note: usual completion is on <C-n> but more trouble to press all the time.
+" Never type the same word twice and maybe learn a new spellings!
+" Use the Linux dictionary when spelling is in doubt.
+function! Tab_Or_Complete() abort
+  " If completor is already open the `tab` cycles through suggested completions.
+  if pumvisible()
+    return "\<C-N>"
+  " If completor is not open and we are in the middle of typing a word then
+  " `tab` opens completor menu.
+  elseif col('.')>1 && strpart( getline('.'), col('.')-2, 3 ) =~ '^[[:keyword:][:ident:]]'
+    return "\<C-R>=completor#do('complete')\<CR>"
+  else
+    " If we aren't typing a word and we press `tab` simply do the normal `tab`
+    " action.
+    return "\<Tab>"
+  endif
+endfunction
+
+" Use `tab` key to select completions.  Default is arrow keys.
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" Use tab to trigger auto completion.  Default suggests completions as you type.
+let g:completor_auto_trigger = 1
+inoremap <expr> <Tab> Tab_Or_Complete()
