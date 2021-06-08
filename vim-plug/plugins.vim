@@ -67,8 +67,7 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'airblade/vim-gitgutter'
     Plug 'tpope/vim-fugitive'
     Plug 'tpope/vim-rhubarb'
-    Plug 'junegunn/gv.vim'
-    " Terminal
+    Plug 'junegunn/gv.vim' " Terminal
     Plug 'voldikss/vim-floaterm'
     " Start Screen
     Plug 'mhinz/vim-startify'
@@ -94,6 +93,9 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'jalvesaq/Nvim-R'
     Plug 'christianchiarulli/nvcode-color-schemes.vim'
     Plug 'nvim-treesitter/nvim-treesitter', { 'commit': '3c07232'}
+    Plug 'jpalardy/vim-slime', { 'for': 'python' }
+    Plug 'hanschen/vim-ipython-cell', { 'for': 'python' }
+    Plug 'kassio/neoterm'
   endif
 
 
